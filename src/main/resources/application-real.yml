@@ -1,0 +1,12 @@
+spring:
+  profiles:
+    include: real-db
+
+  jpa:
+    show_sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL57Dialect
+
+  session:
+    store-type: jdbc
