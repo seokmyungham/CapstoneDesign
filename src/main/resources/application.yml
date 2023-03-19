@@ -1,0 +1,16 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true #To beautify or pretty print the SQL
+        show_sql: true #show sql
+
+  pid:
+    file: /home/ec2-user/app/step2/capstone.pid
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
