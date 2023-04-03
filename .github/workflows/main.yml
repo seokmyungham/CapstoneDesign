@@ -4,14 +4,14 @@ env:
   CODE_DEPLOY_APP_NAME: springboot-capstone                
   CODE_DEPLOY_GROUP_NAME: springboot-capstone-group
 
-name: deploy # (0) GitHub Action에서 보여질 이름을 지정합니다. 
+name: deploy
 
 on:
   release:
-    types: [push] # (1) push시 자동으로 실행됩니다.
+    types: [push]
   push:
-    branches: [master] # (2) main 브랜치에서 동작합니다.
-  workflow_dispatch: # (3) 수동으로도 실행이 가능합니다.
+    branches: [master]
+  workflow_dispatch:
 
 
 jobs:
