@@ -41,7 +41,6 @@ public class SecurityConfig {
                 .addFilterBefore(new JwtAuthFilter(tokenService),
                         UsernamePasswordAuthenticationFilter.class)
                 .oauth2Login(oauth2Login -> oauth2Login
-                        .loginPage("/token/expired")
                         .successHandler(successHandler)
                         .userInfoEndpoint()
                         .userService(customOAuth2UserService));
