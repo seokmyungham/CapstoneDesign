@@ -35,7 +35,7 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/"))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/", "/css/**", "/images/**",
-                                "/js/**", "/h2-console/**", "/token/**").permitAll()
+                                "/js/**", "/h2-console/**", "/token/**", "/profile").permitAll()
                         .requestMatchers("/api/**").hasRole(Role.USER.name())
                         .anyRequest().authenticated())
                 .addFilterBefore(new JwtAuthFilter(tokenService),
