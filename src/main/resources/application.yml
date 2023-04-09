@@ -3,6 +3,12 @@ spring:
     prefix: classpath:/templates/
     suffix: .html
 
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/boxtobox;
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
   jpa:
     hibernate:
       ddl-auto: create
