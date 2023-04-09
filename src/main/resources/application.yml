@@ -1,7 +1,11 @@
 spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true #To beautify or pretty print the SQL
@@ -10,7 +14,13 @@ spring:
   pid:
     file: /home/ec2-user/app/step2/capstone.pid
 
+  profiles:
+    include: oauth
+
 logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.type: trace
+
+
+
