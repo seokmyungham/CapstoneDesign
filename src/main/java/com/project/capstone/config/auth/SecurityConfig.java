@@ -41,6 +41,7 @@ public class SecurityConfig {
                 .addFilterBefore(new JwtAuthFilter(tokenService),
                         UsernamePasswordAuthenticationFilter.class)
                 .oauth2Login(oauth2Login -> oauth2Login
+                        .defaultSuccessUrl("/login-success")
                         .successHandler(successHandler)
                         .userInfoEndpoint()
                         .userService(customOAuth2UserService));
