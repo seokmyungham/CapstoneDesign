@@ -40,7 +40,7 @@ public class WebSecurityConfig {
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .accessDeniedHandler(jwtAccessDeniedHandler)
                 .and()
-                .authorizeHttpRequests().requestMatchers("/auth/**", "/profile").permitAll()
+                .authorizeHttpRequests().requestMatchers( "http://localhost:3000/auth/**", "api/auth/**", "/auth/**", "/profile").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtSecurityConfig(tokenProvider));

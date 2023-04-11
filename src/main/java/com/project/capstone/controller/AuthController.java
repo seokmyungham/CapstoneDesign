@@ -5,7 +5,6 @@ import com.project.capstone.config.dto.MemberResponseDto;
 import com.project.capstone.config.dto.TokenDto;
 import com.project.capstone.service.AuthService;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
