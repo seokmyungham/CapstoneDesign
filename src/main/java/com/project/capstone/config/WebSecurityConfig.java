@@ -48,7 +48,7 @@ public class WebSecurityConfig {
                 .and()
                 .authorizeHttpRequests() .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .requestMatchers( "/hi", "http://localhost:3000/auth/**", "api/auth/**", "/auth/**", "/profile").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .apply(new JwtSecurityConfig(tokenProvider));
 
