@@ -1,9 +1,7 @@
 package com.project.capstone.domain.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
-import org.springframework.context.annotation.Bean;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -28,7 +26,6 @@ public class Member {
     @Column
     @Enumerated(EnumType.STRING)
     private Role role;
-
 
     public String getRoleKey() {
         return this.role.getKey();
