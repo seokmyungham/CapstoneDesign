@@ -6,10 +6,7 @@ import com.project.capstone.config.dto.TokenDto;
 import com.project.capstone.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -25,5 +22,15 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<TokenDto> login(@RequestBody MemberRequestDto requestDto) {
         return ResponseEntity.ok(authService.login(requestDto));
+    }
+
+    @GetMapping("/check/nickname/{nickname}")
+    public ResponseEntity<?> checkNickname(@PathVariable("nickname") String nickname) {
+        return ResponseEntity.ok(authService.checkNicknameDuplicate(nickname));
+    }
+
+    @GetMapping("/check/email/{email}")
+    public ResponseEntity<?> checkEmail(@PathVariable("email") String email) {
+        return ResponseEntity.ok(authService.checkEmailDuplicate(email));
     }
 }

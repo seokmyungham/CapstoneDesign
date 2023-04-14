@@ -7,6 +7,7 @@ import com.project.capstone.config.jwt.TokenProvider;
 import com.project.capstone.domain.entity.Member;
 import com.project.capstone.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class AuthService {
 
     private final AuthenticationManagerBuilder managerBuilder;
@@ -31,6 +33,18 @@ public class AuthService {
 
         Member member = requestDto.toMember(passwordEncoder);
         return MemberResponseDto.of(memberRepository.save(member));
+    }
+
+    @Transactional
+    public boolean checkNicknameDuplicate(String nickname) {
+        log.info("Call checkNickname !!");
+        return memberRepository.existsByNickname(nickname);
+    }
+
+    @Transactional
+    public boolean checkEmailDuplicate(String email) {
+        log.info("Call checkEmail !!");
+        return memberRepository.existsByEmail(email);
     }
 
     public TokenDto login(MemberRequestDto requestDto) {
