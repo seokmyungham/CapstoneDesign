@@ -3,6 +3,9 @@ package com.project.capstone.domain.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -26,6 +29,9 @@ public class Member {
     @Column
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToMany(mappedBy = "member")
+    private List<Post> postList = new ArrayList<>();
 
     public String getRoleKey() {
         return this.role.getKey();
