@@ -24,7 +24,7 @@ public class News {
     private String number;
 
     @Builder
-    public News(String image, String headline, String snippet, String url, LocalDateTime time, String number) {
+    public News(String image, String headline, String snippet, String url, LocalDateTime time, String number, String newsId) {
         this.image = image;
         this.headline = headline;
         this.snippet = snippet;

@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface NewsRepository extends JpaRepository<News, Long>, NewsRepositoryCustom {
 
-    boolean existsByNumber(String number);
+    boolean existsByHeadline(String headline);
 }

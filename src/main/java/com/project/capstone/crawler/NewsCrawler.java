@@ -31,9 +31,10 @@ public class NewsCrawler {
 
     public void getNewsData(String url) {
         int page = 1;
+        int count = 0;
 //        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
         try {
-            while(true) {
+            while(count < 20) {
                 Document doc = Jsoup.connect(url).data("page", String.valueOf(page)).get();
                 Elements newsList = doc.select(".news-list__item");
                 if (newsList.isEmpty()) {
@@ -45,14 +46,10 @@ public class NewsCrawler {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy h:mma", Locale.ENGLISH);
                     LocalDateTime publishDateTime = LocalDateTime.parse(dateString.toUpperCase(), formatter);
 
-                    if (publishDateTime.getMonthValue() == LocalDate.now().getMonth().getValue() - 1) {
-                        return;
-                    }
-
                     String newsId = news.attr("data-id");
-                    if (!newsRepository.existsByNumber(newsId)) {
+                    String headline = news.select(".news-list__headline").text();
 
-                        String headline = news.select(".news-list__headline").text();
+                    if (!newsRepository.existsByHeadline(headline)) {
                         String snippet = news.select(".news-list__snippet").text();
                         String imageUrl = news.select(".news-list__image").attr("data-src");
                         String link = news.select(".news-list__headline a").attr("href");
@@ -68,7 +65,11 @@ public class NewsCrawler {
 
                         log.info("새로운 뉴스입니다.");
                         newsRepository.save(news1);
+                        count++;
+                    }
 
+                    if (count == 20) { // count가 20이 되면 loop를 종료합니다.
+                        return;
                     }
 
                 }
