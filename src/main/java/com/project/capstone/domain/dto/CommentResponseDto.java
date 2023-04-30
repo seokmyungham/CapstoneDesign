@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @AllArgsConstructor
@@ -16,7 +17,7 @@ public class CommentResponseDto {
     private Long commentId;
     private String memberNickName;
     private String commentText;
-    private Long createdAt;
+    private String createdAt;
     private boolean isWritten;
 
     public static CommentResponseDto of(Comment comment, boolean bool) {
@@ -24,7 +25,7 @@ public class CommentResponseDto {
                 .commentId(comment.getId())
                 .memberNickName(comment.getMember().getNickname())
                 .commentText(comment.getText())
-                .createdAt(Timestamp.valueOf(comment.getCreatedDate()).getTime())
+                .createdAt(comment.getCreatedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .isWritten(bool)
                 .build();
     }
