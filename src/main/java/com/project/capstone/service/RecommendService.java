@@ -6,7 +6,7 @@ import com.project.capstone.domain.entity.Member;
 import com.project.capstone.domain.entity.Post;
 import com.project.capstone.domain.entity.Recommend;
 import com.project.capstone.repository.MemberRepository;
-import com.project.capstone.repository.PostRepository;
+import com.project.capstone.repository.PageRepository;
 import com.project.capstone.repository.RecommendRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -20,7 +20,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class RecommendService {
-    private final PostRepository postRepository;
+    private final PageRepository postRepository;
     private final MemberRepository memberRepository;
     private final RecommendRepository recommendRepository;
 

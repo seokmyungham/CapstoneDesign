@@ -3,12 +3,10 @@ package com.project.capstone.service;
 import com.project.capstone.config.SecurityUtil;
 import com.project.capstone.domain.dto.PageResponseDto;
 import com.project.capstone.domain.dto.PostResponseDto;
-import com.project.capstone.domain.dto.RecommendDto;
 import com.project.capstone.domain.entity.Member;
 import com.project.capstone.domain.entity.Post;
-import com.project.capstone.domain.entity.Recommend;
 import com.project.capstone.repository.MemberRepository;
-import com.project.capstone.repository.PostRepository;
+import com.project.capstone.repository.PageRepository;
 import com.project.capstone.repository.RecommendRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -25,7 +23,7 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class PostService {
-    private final PostRepository postRepository;
+    private final PageRepository postRepository;
     private final MemberRepository memberRepository;
     private final RecommendRepository recommendRepository;
 

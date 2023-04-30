@@ -7,7 +7,7 @@ import com.project.capstone.domain.entity.Member;
 import com.project.capstone.domain.entity.Post;
 import com.project.capstone.repository.CommentRepository;
 import com.project.capstone.repository.MemberRepository;
-import com.project.capstone.repository.PostRepository;
+import com.project.capstone.repository.PageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,7 +25,7 @@ import java.util.stream.Stream;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class CommentService {
-    private final PostRepository postRepository;
+    private final PageRepository postRepository;
     private final MemberRepository memberRepository;
     private final CommentRepository commentRepository;
 
