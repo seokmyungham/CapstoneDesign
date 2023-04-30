@@ -24,7 +24,7 @@ public class NewsRepositoryImpl implements NewsRepositoryCustom {
     public Page<NewsResponseDto> searchAllNews(Pageable pageable) {
         List<News> content = queryFactory
                 .selectFrom(news)
-                .orderBy(news.id.asc())
+                .orderBy(news.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
