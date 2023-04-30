@@ -1,9 +1,10 @@
 package com.project.capstone.repository;
 
+import com.project.capstone.domain.dto.NewsResponseDto;
 import com.project.capstone.domain.dto.PageResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface PostRepositoryCustom {
+public interface PageRepositoryCustom {
     Page<PageResponseDto> searchAll(Pageable pageable);
 }

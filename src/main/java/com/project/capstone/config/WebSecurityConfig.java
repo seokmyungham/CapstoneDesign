@@ -47,7 +47,7 @@ public class WebSecurityConfig {
                 .accessDeniedHandler(jwtAccessDeniedHandler)
                 .and()
                 .authorizeHttpRequests() .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                .requestMatchers( "/hi", "/auth/**", "/profile", "/post/**", "/recommend/**", "/comment/**").permitAll()
+                .requestMatchers( "/hi", "/auth/**", "/profile", "/news/**", "/post/**", "/recommend/**", "/comment/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtSecurityConfig(tokenProvider));
