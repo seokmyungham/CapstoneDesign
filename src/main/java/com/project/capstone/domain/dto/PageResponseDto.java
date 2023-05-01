@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 public class PageResponseDto {
     private Long postId;
     private String postTitle;
+    private String content;
     private String memberNickname;
     private String postContent;
     private String createdAt;
@@ -19,6 +20,7 @@ public class PageResponseDto {
         return PageResponseDto.builder()
                 .postId(post.getId())
                 .postTitle(post.getTitle())
+                .postContent(post.getContent())
                 .memberNickname(post.getMember().getNickname())
                 .createdAt(post.getCreatedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .build();

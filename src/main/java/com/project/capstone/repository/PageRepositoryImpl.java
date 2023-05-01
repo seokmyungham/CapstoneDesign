@@ -1,8 +1,6 @@
 package com.project.capstone.repository;
 
-import com.project.capstone.domain.dto.NewsResponseDto;
 import com.project.capstone.domain.dto.PageResponseDto;
-import com.project.capstone.domain.entity.News;
 import com.project.capstone.domain.entity.Post;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +12,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.project.capstone.domain.entity.QNews.news;
 import static com.project.capstone.domain.entity.QPost.*;
 
 @RequiredArgsConstructor
