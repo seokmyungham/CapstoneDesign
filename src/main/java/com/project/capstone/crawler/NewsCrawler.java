@@ -15,9 +15,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -29,7 +30,7 @@ import java.util.stream.Collectors;
 public class NewsCrawler {
     private final NewsRepository newsRepository;
 
-    public void getNewsData(String url) {
+    public void getNewsData_SkySports(String url) {
         int page = 1;
         int count = 0;
 //        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
@@ -37,10 +38,14 @@ public class NewsCrawler {
             while(count < 20) {
                 Document doc = Jsoup.connect(url).data("page", String.valueOf(page)).get();
                 Elements newsList = doc.select(".news-list__item");
+
+                List<Element> reversedNewsList = new ArrayList<>(newsList);
+                Collections.reverse(reversedNewsList);
+
                 if (newsList.isEmpty()) {
                     break; // Latest 뉴스 아이템이 없으면 종료
                 }
-                for (Element news : newsList) {
+                for (Element news : reversedNewsList) {
                     // 뉴스 게시 날짜 추출
                     String dateString = news.select(".label__timestamp").text();
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy h:mma", Locale.ENGLISH);
@@ -74,6 +79,55 @@ public class NewsCrawler {
 
                 }
             return;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getNewsData_Naver(String url, String keyword1, String keyword2) {
+        int count = 0;
+        try {
+            while (count < 20) {
+                Document doc = Jsoup.connect(url).get();
+                Elements newsList = doc.select(".news_list");
+
+                if (newsList.isEmpty()) {
+                    System.out.println("종료다");
+                    break; // Latest 뉴스 아이템이 없으면 종료
+                }
+                for (Element news : newsList) {
+                    // 뉴스 게시 날짜 추출
+//                    String dateString = news.select(".info").text();
+//                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
+//                    LocalDateTime publishDateTime = LocalDateTime.parse(dateString, formatter);
+
+                    String headline = news.select(".title").text();
+                    System.out.println(headline);
+                    System.out.println("ㅎㅇㅎㅇ");
+//                    if (headline.contains(keyword1) || headline.contains(keyword2)) { // 헤드라인에 keyword가 포함된 경우에만 처리
+//
+//                        if (!newsRepository.existsByHeadline(headline)) {
+//                            String link = news.select(".title a").attr("href");
+//                            String imageUrl = news.select(".photo img").attr("src");
+//                            String snippet = news.select(".desc").text();
+//                            log.info("새로운 뉴스입니다.");
+//                            News news1 = News.builder()
+//                                    .image(imageUrl)
+//                                    .headline(headline)
+//                                    .snippet(snippet)
+//                                    .url(link)
+//                                    .time(null)
+//                                    .build();
+//                            newsRepository.save(news1);
+                            count++;
+//                        }
+//                    }
+//
+                    if (count == 20) { // count가 20이 되면 loop를 종료합니다.
+                        return;
+                    }
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
