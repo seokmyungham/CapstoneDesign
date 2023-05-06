@@ -35,50 +35,39 @@ public class NewsCrawler {
         int count = 0;
 //        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
         try {
-            while(count < 20) {
-                Document doc = Jsoup.connect(url).data("page", String.valueOf(page)).get();
-                Elements newsList = doc.select(".news-list__item");
+            Document doc = Jsoup.connect(url).data("page", String.valueOf(page)).get();
+            Elements newsList = doc.select(".news-list__item");
 
-                List<Element> reversedNewsList = new ArrayList<>(newsList);
-                Collections.reverse(reversedNewsList);
+            List<Element> reversedNewsList = new ArrayList<>(newsList);
+            Collections.reverse(reversedNewsList);
 
-                if (newsList.isEmpty()) {
-                    break; // Latest 뉴스 아이템이 없으면 종료
+            for (Element news : reversedNewsList) {
+                // 뉴스 게시 날짜 추출
+                String dateString = news.select(".label__timestamp").text();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy h:mma", Locale.ENGLISH);
+                LocalDateTime publishDateTime = LocalDateTime.parse(dateString.toUpperCase(), formatter);
+
+                String newsId = news.attr("data-id");
+                String headline = news.select(".news-list__headline").text();
+
+                if (!newsRepository.existsByHeadline(headline)) {
+                    String snippet = news.select(".news-list__snippet").text();
+                    String imageUrl = news.select(".news-list__image").attr("data-src");
+                    String link = news.select(".news-list__headline a").attr("href");
+
+                    News news1 = News.builder()
+                            .image(imageUrl)
+                            .headline(headline)
+                            .snippet(snippet)
+                            .url(link)
+                            .time(publishDateTime)
+                            .number(newsId)
+                            .build();
+
+                    log.info("새로운 뉴스입니다.");
+                    newsRepository.save(news1);
+                    count++;
                 }
-                for (Element news : reversedNewsList) {
-                    // 뉴스 게시 날짜 추출
-                    String dateString = news.select(".label__timestamp").text();
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy h:mma", Locale.ENGLISH);
-                    LocalDateTime publishDateTime = LocalDateTime.parse(dateString.toUpperCase(), formatter);
-
-                    String newsId = news.attr("data-id");
-                    String headline = news.select(".news-list__headline").text();
-
-                    if (!newsRepository.existsByHeadline(headline)) {
-                        String snippet = news.select(".news-list__snippet").text();
-                        String imageUrl = news.select(".news-list__image").attr("data-src");
-                        String link = news.select(".news-list__headline a").attr("href");
-
-                        News news1 = News.builder()
-                                .image(imageUrl)
-                                .headline(headline)
-                                .snippet(snippet)
-                                .url(link)
-                                .time(publishDateTime)
-                                .number(newsId)
-                                .build();
-
-                        log.info("새로운 뉴스입니다.");
-                        newsRepository.save(news1);
-                        count++;
-                    }
-
-                    if (count == 20) { // count가 20이 되면 loop를 종료합니다.
-                        return;
-                    }
-
-                }
-            return;
             }
         } catch (IOException e) {
             e.printStackTrace();
