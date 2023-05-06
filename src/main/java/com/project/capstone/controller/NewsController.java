@@ -19,30 +19,7 @@ public class NewsController {
 
     @GetMapping("/tottenham-hotspur")
     public ResponseEntity<Page<NewsResponseDto>> NewsList_th(@RequestParam(name = "page") int page) {
-        newsCrawler.getNewsData("https://www.skysports.com/tottenham-hotspur-news");
+        newsCrawler.getNewsData_SkySports("https://www.skysports.com/tottenham-hotspur-news");
         return ResponseEntity.ok(newsCrawler.pageNews(page));
     }
-
-    @GetMapping("/manchester-united")
-    public void NewsList_mu() {
-        newsCrawler.getNewsData("https://www.skysports.com/manchester-united");
-    }
-
-    @GetMapping("/arsenal")
-    public void NewsList_arsenal() {
-        newsCrawler.getNewsData("https://www.skysports.com/arsenal");
-    }
-
-    @GetMapping("/manchester-city")
-    public void NewsList_mc() {
-        newsCrawler.getNewsData("https://www.skysports.com/manchester-city");
-    }
-
-    @GetMapping("/chelsea")
-    public void NewsList_chelsea() {
-        newsCrawler.getNewsData("https://www.skysports.com/chelsea");
-    }
-
-
-
 }
