@@ -27,6 +27,12 @@ public class Member {
     private String nickname;
 
     @Column
+    private String image;
+
+    @Column
+    private String introduction;
+
+    @Column
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -45,12 +51,20 @@ public class Member {
         this.password = password;
     }
 
+    public void changeImage(String image) {this.image = image;}
+
+    public void changeIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
+
     @Builder
-    public Member(Long id, String email, String password, String nickname, Role role) {
+    public Member(Long id, String email, String password, String nickname, Role role, String image, String introduction) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.nickname = nickname;
         this.role = role;
+        this.image = image;
+        this.introduction = introduction;
     }
 }

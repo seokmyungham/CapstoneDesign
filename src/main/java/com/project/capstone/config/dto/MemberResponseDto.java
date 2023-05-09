@@ -13,11 +13,15 @@ import lombok.NoArgsConstructor;
 public class MemberResponseDto {
     private String email;
     private String nickname;
+    private String image;
+    private String introduction;
 
     public static MemberResponseDto of(Member member) {
         return MemberResponseDto.builder()
                 .email(member.getEmail())
                 .nickname(member.getNickname())
+                .image(member.getImage())
+                .introduction(member.getIntroduction())
                 .build();
     }
 }

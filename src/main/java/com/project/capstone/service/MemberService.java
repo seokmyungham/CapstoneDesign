@@ -39,4 +39,18 @@ public class MemberService {
         member.changePassword(passwordEncoder.encode(newPassword));
         return MemberResponseDto.of(memberRepository.save(member));
     }
+
+    @Transactional
+    public MemberResponseDto changeMemberImage(String image) {
+        Member member = memberRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
+        member.changeImage(image);
+        return MemberResponseDto.of(memberRepository.save(member));
+    }
+
+    @Transactional
+    public MemberResponseDto changeMemberIntroduction(String introduction) {
+        Member member = memberRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
+        member.changeIntroduction(introduction);
+        return MemberResponseDto.of(memberRepository.save(member));
+    }
 }

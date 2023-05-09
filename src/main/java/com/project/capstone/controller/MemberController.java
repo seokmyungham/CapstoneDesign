@@ -33,4 +33,14 @@ public class MemberController {
     public ResponseEntity<MemberResponseDto> changeMemberPassword(@RequestBody ChangePasswordRequestDto request) {
         return ResponseEntity.ok(memberService.changeMemberPassword(request.getExPassword(), request.getNewPassword()));
     }
+
+    @PostMapping("/image")
+    public ResponseEntity<MemberResponseDto> changeMemberImage(@RequestBody MemberRequestDto request) {
+        return ResponseEntity.ok(memberService.changeMemberImage(request.getImage()));
+    }
+
+    @PostMapping("/introduction")
+    public ResponseEntity<MemberResponseDto> changeMemberIntroduction(@RequestBody MemberRequestDto request) {
+        return ResponseEntity.ok(memberService.changeMemberIntroduction(request.getIntroduction()));
+    }
 }
