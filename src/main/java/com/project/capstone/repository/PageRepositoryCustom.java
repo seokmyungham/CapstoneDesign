@@ -7,4 +7,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface PageRepositoryCustom {
     Page<PageResponseDto> searchAll(Pageable pageable);
+
+    Page<PageResponseDto> searchByWriter(String nickname, Pageable pageable);
 }

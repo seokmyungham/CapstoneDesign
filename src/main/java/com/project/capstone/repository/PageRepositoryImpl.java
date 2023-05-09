@@ -41,4 +41,27 @@ public class PageRepositoryImpl implements PageRepositoryCustom {
 
         return new PageImpl<>(pages, pageable, totalSize);
     }
+
+    @Override
+    public Page<PageResponseDto> searchByWriter(String nickname, Pageable pageable) {
+        List<Post> content = queryFactory
+                .selectFrom(post)
+                .where(post.member.nickname.eq(nickname))
+                .orderBy(post.id.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        List<PageResponseDto> pages = content
+                .stream()
+                .map(PageResponseDto::of)
+                .collect(Collectors.toList());
+
+        int totalSize = queryFactory
+                .selectFrom(post)
+                .fetch()
+                .size();
+
+        return new PageImpl<>(pages, pageable, totalSize);
+    }
 }

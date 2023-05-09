@@ -18,6 +18,11 @@ public class PostController {
         return ResponseEntity.ok(postService.pagePost(page));
     }
 
+    @GetMapping("/{nickname}/{page}")
+    public ResponseEntity<Page<PageResponseDto>> myPagePost(@PathVariable(name = "nickname") String nickname, @PathVariable(name = "page") int page) {
+        return ResponseEntity.ok(postService.myPagePost(nickname, page));
+    }
+
     @GetMapping("/one")
     public ResponseEntity<PostResponseDto> getOnePost(@RequestParam(name = "id") Long id) {
         return ResponseEntity.ok(postService.onePost(id));
