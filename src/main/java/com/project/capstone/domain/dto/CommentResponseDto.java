@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
 import java.time.format.DateTimeFormatter;
 
 @Getter
@@ -29,6 +28,4 @@ public class CommentResponseDto {
                 .isWritten(bool)
                 .build();
     }
-
-
 }

@@ -24,6 +24,12 @@ public class MemberController {
         return ResponseEntity.ok(myInfoBySecurity);
     }
 
+    @GetMapping("/{nickname}")
+    public ResponseEntity<MemberResponseDto> getMemberInfo(@PathVariable(name = "nickname") String nickname) {
+        MemberResponseDto memberInfo = memberService.getMemberInfo(nickname);
+        return ResponseEntity.ok(memberInfo);
+    }
+
     @PostMapping("/nickname")
     public ResponseEntity<MemberResponseDto> changeMemberNickname(@RequestBody MemberRequestDto request) {
         return ResponseEntity.ok(memberService.changeMemberNickname(request.getNickname()));

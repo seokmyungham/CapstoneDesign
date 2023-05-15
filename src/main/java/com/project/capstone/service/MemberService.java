@@ -23,6 +23,12 @@ public class MemberService {
                 .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
     }
 
+    public MemberResponseDto getMemberInfo(String nickname) {
+        return memberRepository.findByNickname(nickname)
+                .map(MemberResponseDto::of)
+                .orElseThrow(() -> new IllegalArgumentException("일치하는 닉네임이 없습니다."));
+    }
+
     @Transactional
     public MemberResponseDto changeMemberNickname(String nickname) {
         Member member = memberRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다"));
