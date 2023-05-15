@@ -69,13 +69,9 @@ public class CommentService {
         Member member = memberRepository.findById(SecurityUtil.getCurrentMemberId())
                 .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다"));
 
-        Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException("댓글이 없습니다"));
+        Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException("게시물이 없습니다"));
 
-        Comment comment = Comment.builder()
-                .text(text)
-                .post(post)
-                .member(member)
-                .build();
+        Comment comment = Comment.createComment(text, member, post);
 
         return CommentResponseDto.of(commentRepository.save(comment), true);
     }
