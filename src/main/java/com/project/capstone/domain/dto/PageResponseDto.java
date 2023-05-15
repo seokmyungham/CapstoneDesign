@@ -13,6 +13,8 @@ public class PageResponseDto {
     private String postTitle;
     private String content;
     private String memberNickname;
+    private String memberImage;
+    private String memberIntroduction;
     private String postContent;
     private String createdAt;
 
@@ -22,6 +24,8 @@ public class PageResponseDto {
                 .postTitle(post.getTitle())
                 .postContent(post.getContent())
                 .memberNickname(post.getMember().getNickname())
+                .memberImage(post.getMember().getImage())
+                .memberIntroduction(post.getMember().getIntroduction())
                 .createdAt(post.getCreatedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .build();
     }

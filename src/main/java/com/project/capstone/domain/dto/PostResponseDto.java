@@ -15,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 public class PostResponseDto {
     private Long postId;
     private String memberNickName;
+    private String memberImage;
     private String title;
     private String content;
     private String createdAt;
@@ -25,6 +26,7 @@ public class PostResponseDto {
         return PostResponseDto.builder()
                 .postId(post.getId())
                 .memberNickName(post.getMember().getNickname())
+                .memberImage(post.getMember().getImage())
                 .title(post.getTitle())
                 .content(post.getContent())
                 .createdAt(post.getCreatedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
