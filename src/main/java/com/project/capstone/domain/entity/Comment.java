@@ -28,11 +28,32 @@ public class Comment extends BaseTimeEntity {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    @Builder
-    public Comment(String text, Member member, Post post) {
-        this.text = text;
-        this.member = member;
-        this.post = post;
+    public static Comment createComment(String text, Member member, Post post) {
+        Comment comment = new Comment();
+        comment.setText(text);
+        comment.setMember(member);
+        comment.setPost(post);
+
+        return comment;
     }
 
+    public void setText(String text) {
+        if (text == null) {
+            throw new IllegalArgumentException("댓글 내용이 비어있습니다.");
+        }
+
+        if (text.length() > 500) {
+            throw new IllegalArgumentException("댓글 내용은 500자를 초과할 수 없습니다.");
+        }
+
+        this.text = text;
+    }
+
+    public void setPost(Post post) {
+        if (post == null) {
+            throw new IllegalArgumentException("게시물은 필수 항목입니다.");
+        }
+
+        this.post = post;
+    }
 }
