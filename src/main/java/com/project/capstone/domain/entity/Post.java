@@ -35,22 +35,6 @@ public class Post extends BaseTimeEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    public static Post createPost(String title, String content, Member member) {
-        Post post = new Post();
-        post.setTitle(title);
-        post.setContent(content);
-        post.member = member;
-
-        return post;
-    }
-
-    public static Post updatePost(Post post, String title, String content) {
-        post.setTitle(title);
-        post.setContent(content);
-        return post;
-    }
-
-
     private void setTitle(String title) {
         if (title == null || title.trim().isEmpty()) {
             throw new IllegalArgumentException("타이틀 사진은 필수 항목입니다.");
@@ -69,6 +53,30 @@ public class Post extends BaseTimeEntity {
         }
 
         this.content = content;
+    }
+
+    protected void setMember(Member member) {
+        this.member = member;
+        member.getPostList().add(this);
+    }
+
+    public static Post createPost(String title, String content, Member member) {
+        Post post = new Post();
+        post.setTitle(title);
+        post.setContent(content);
+        post.setMember(member);
+
+        return post;
+    }
+
+    public static Post updatePost(Post post, String title, String content) {
+        post.setTitle(title);
+        post.setContent(content);
+        return post;
+    }
+
+    public void deletePost(Post post) {
+        post.getMember().getPostList().remove(post);
     }
 
     private boolean isValidImagePath(String imagePath) {

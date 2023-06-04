@@ -37,13 +37,11 @@ public class AuthService {
 
     @Transactional
     public boolean checkNicknameDuplicate(String nickname) {
-        log.info("Call checkNickname !!");
         return memberRepository.existsByNickname(nickname);
     }
 
     @Transactional
     public boolean checkEmailDuplicate(String email) {
-        log.info("Call checkEmail !!");
         return memberRepository.existsByEmail(email);
     }
 

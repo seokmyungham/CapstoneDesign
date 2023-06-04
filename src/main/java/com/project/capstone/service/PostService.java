@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,12 +40,7 @@ public class PostService {
     }
 
     public Page<PageResponseDto> myPagePost(String nickname, int pageNum) {
-//        Optional<Member> member = memberRepository.findByNickname(nickname);
-//        if (member.isPresent()) {
-            return postRepository.searchByWriter(nickname, PageRequest.of(pageNum - 1, 20));
-//        } else {
-//            throw new RuntimeException("해당 닉네임을 가진 회원이 없습니다.");
-//        }
+        return postRepository.searchByWriter(nickname, PageRequest.of(pageNum - 1, 20));
     }
 
     public PostResponseDto onePost(Long id) {
@@ -77,6 +71,7 @@ public class PostService {
     @Transactional
     public void deletePost(Long id) {
         Post post = authorizationPostWriter(id);
+        post.deletePost(post);
         postRepository.delete(post);
     }
 
