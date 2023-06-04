@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/member")
@@ -48,5 +50,10 @@ public class MemberController {
     @PostMapping("/introduction")
     public ResponseEntity<MemberResponseDto> changeMemberIntroduction(@RequestBody MemberRequestDto request) {
         return ResponseEntity.ok(memberService.changeMemberIntroduction(request.getIntroduction()));
+    }
+
+    @GetMapping("/search/{nickname}")
+    public ResponseEntity<List<MemberResponseDto>> searchMemberList(@PathVariable(name = "nickname") String nickname) {
+        return ResponseEntity.ok(memberService.searchMemberList(nickname));
     }
 }
