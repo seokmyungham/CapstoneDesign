@@ -23,7 +23,7 @@ public class ChatRoom {
     private List<ChatMessage> chatMessages = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "roomMaker_id")
+    @JoinColumn(name = "room_maker_id")
     private Member roomMaker;
 
     @ManyToOne(fetch = FetchType.LAZY)
