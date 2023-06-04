@@ -3,6 +3,7 @@ package com.project.capstone.controller;
 import com.project.capstone.domain.dto.ChatMessageDto;
 import com.project.capstone.domain.dto.ChatRequestDto;
 import com.project.capstone.domain.dto.ChatResponseDto;
+import com.project.capstone.domain.dto.MessageDto;
 import com.project.capstone.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +35,13 @@ public class ChatController {
     public ResponseEntity<ChatResponseDto> joinChatRoom(@RequestBody ChatRequestDto requestDto) {
         return ResponseEntity.ok(chatService.chatRoom(requestDto.getNickname()));
     }
+
+    @DeleteMapping("/room")
+    public ResponseEntity<MessageDto> deleteChatRoom(@RequestParam(name = "id") Long id) {
+        chatService.deleteChatRoom(id);
+        return ResponseEntity.ok(new MessageDto("ChatRoom Delete Success"));
+    }
+
 
     @GetMapping("/list")
     public ResponseEntity<List<ChatResponseDto>> getChatRoomList() {
