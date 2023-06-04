@@ -6,6 +6,7 @@ import com.project.capstone.config.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -47,8 +48,12 @@ public class WebSecurityConfig {
                 .accessDeniedHandler(jwtAccessDeniedHandler)
                 .and()
                 .authorizeHttpRequests() .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                .requestMatchers( "/hi", "/auth/**", "/profile", "/news/**", "/post/**", "/recommend/**", "/comment/**").permitAll()
-                .anyRequest().authenticated()
+                .requestMatchers( "/hi", "/auth/**", "/profile", "/news/**", "/recommend/**", "/comment/**", "/ws/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/post/").authenticated()
+                .requestMatchers(HttpMethod.PUT, "/post/").authenticated()
+                .requestMatchers(HttpMethod.GET, "/post/change/**").authenticated()
+                .requestMatchers(HttpMethod.DELETE, "/post/one/**").authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .apply(new JwtSecurityConfig(tokenProvider));
         return http.build();
