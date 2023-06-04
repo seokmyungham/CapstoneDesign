@@ -30,7 +30,7 @@ public class ChatRoom {
     @JoinColumn(name = "guest_id")
     private Member guest;
 
-    @Column
+    @Column(name = "created_date")
     private LocalDateTime createdDate;
 
     public static ChatRoom createRoom(Member member1, Member member2) {
