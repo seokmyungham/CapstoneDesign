@@ -64,7 +64,7 @@ public class WebSecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         config.addAllowedOrigin("http://localhost:3000");
-        config.addAllowedOrigin("http://192.168.25.44:3000");
+        config.addAllowedOrigin("http://choisg.s3-website.ap-northeast-2.amazonaws.com");
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
         config.setAllowCredentials(true);
