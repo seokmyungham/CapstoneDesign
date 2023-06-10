@@ -63,7 +63,7 @@ public class ChatService {
     public void deleteChatRoom(Long id) {
         Member member = isMemberCurrent();
         ChatRoom chatRoom = chatRoomRepository.findById(id).orElseThrow(() -> new RuntimeException("채팅 방이 없습니다."));
-        if (!chatRoom.getRoomMaker().equals(member) || !chatRoom.getGuest().equals(member)) {
+        if (!chatRoom.getRoomMaker().equals(member) && !chatRoom.getGuest().equals(member)) {
             throw new RuntimeException("채팅 방에 소속된 멤버가 아닙니다.");
         }
 
