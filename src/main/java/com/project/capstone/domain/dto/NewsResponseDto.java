@@ -1,6 +1,7 @@
 package com.project.capstone.domain.dto;
 
 import com.project.capstone.domain.entity.News;
+import com.project.capstone.domain.entity.Team;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -15,6 +16,7 @@ public class NewsResponseDto {
     private String snippet;
     private String url;
     private LocalDateTime time;
+    private Team team;
 
     public static NewsResponseDto of(News news) {
         return NewsResponseDto.builder()
@@ -24,6 +26,7 @@ public class NewsResponseDto {
                 .snippet(news.getSnippet())
                 .url(news.getUrl())
                 .time(news.getTime())
+                .team(news.getTeam())
                 .build();
     }
 }

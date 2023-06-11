@@ -2,6 +2,7 @@ package com.project.capstone.crawler;
 
 import com.project.capstone.domain.dto.NewsResponseDto;
 import com.project.capstone.domain.entity.News;
+import com.project.capstone.domain.entity.Team;
 import com.project.capstone.repository.NewsRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -33,7 +33,43 @@ public class NewsCrawler {
     public void getNewsData_SkySports(String url) {
         int page = 1;
         int count = 0;
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
+        Team team = null;
+
+        if (url.contains("manchester-united-news")) {
+            team = Team.MU;
+        } else if (url.contains("tottenham-hotspur-news")) {
+            team = Team.TH;
+        } else if (url.contains("manchester-city-news")) {
+            team = Team.MC;
+        } else if (url.contains("arsenal")) {
+            team = Team.AS;
+        } else if (url.contains("liverpool")) {
+            team = Team.LP;
+        } else if (url.contains("chelsea")) {
+            team = Team.CH;
+        } else if (url.contains("barcelona")) {
+            team = Team.BA;
+        } else if (url.contains("real-madrid")) {
+            team = Team.RM;
+        } else if (url.contains("atletico-madrid")) {
+            team = Team.AT;
+        } else if (url.contains("bayern-munich")) {
+            team = Team.BM;
+        } else if (url.contains("borussia-dortmund")) {
+            team = Team.DM;
+        } else if (url.contains("ac-milan")) {
+            team = Team.AC;
+        } else if (url.contains("inter-milan")) {
+            team = Team.IN;
+        } else if (url.contains("juventus")) {
+            team = Team.JU;
+        } else if (url.contains("napoli")) {
+            team = Team.NA;
+        } else if (url.contains("paris")) {
+            team = Team.PS;
+        }
+
+
         try {
             Document doc = Jsoup.connect(url).data("page", String.valueOf(page)).get();
             Elements newsList = doc.select(".news-list__item");
@@ -50,7 +86,7 @@ public class NewsCrawler {
                 String newsId = news.attr("data-id");
                 String headline = news.select(".news-list__headline").text();
 
-                if (!newsRepository.existsByHeadline(headline)) {
+                if (!newsRepository.existsByHeadlineAndTeam(headline, team)) {
                     String snippet = news.select(".news-list__snippet").text();
                     String imageUrl = news.select(".news-list__image").attr("data-src");
                     String link = news.select(".news-list__headline a").attr("href");
@@ -62,6 +98,7 @@ public class NewsCrawler {
                             .url(link)
                             .time(publishDateTime)
                             .number(newsId)
+                            .team(team)
                             .build();
 
                     log.info("새로운 뉴스입니다.");
@@ -74,65 +111,8 @@ public class NewsCrawler {
         }
     }
 
-    public void getNewsData_Naver(String url, String keyword1, String keyword2) {
-        int count = 0;
-        try {
-            while (count < 20) {
-                Document doc = Jsoup.connect(url).get();
-                Elements newsList = doc.select(".news_list");
-
-                if (newsList.isEmpty()) {
-                    System.out.println("종료다");
-                    break; // Latest 뉴스 아이템이 없으면 종료
-                }
-                for (Element news : newsList) {
-                    // 뉴스 게시 날짜 추출
-//                    String dateString = news.select(".info").text();
-//                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
-//                    LocalDateTime publishDateTime = LocalDateTime.parse(dateString, formatter);
-
-                    String headline = news.select(".title").text();
-                    System.out.println(headline);
-                    System.out.println("ㅎㅇㅎㅇ");
-//                    if (headline.contains(keyword1) || headline.contains(keyword2)) { // 헤드라인에 keyword가 포함된 경우에만 처리
-//
-//                        if (!newsRepository.existsByHeadline(headline)) {
-//                            String link = news.select(".title a").attr("href");
-//                            String imageUrl = news.select(".photo img").attr("src");
-//                            String snippet = news.select(".desc").text();
-//                            log.info("새로운 뉴스입니다.");
-//                            News news1 = News.builder()
-//                                    .image(imageUrl)
-//                                    .headline(headline)
-//                                    .snippet(snippet)
-//                                    .url(link)
-//                                    .time(null)
-//                                    .build();
-//                            newsRepository.save(news1);
-                            count++;
-//                        }
-//                    }
-//
-                    if (count == 20) { // count가 20이 되면 loop를 종료합니다.
-                        return;
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public List<NewsResponseDto> newsResponse() {
-        List<News> newsList = newsRepository.findAll();
-        return newsList
-                .stream()
-                .map(NewsResponseDto::of)
-                .collect(Collectors.toList());
-    }
-
-    public Page<NewsResponseDto> pageNews(int pageNum) {
-        return newsRepository.searchAllNews(PageRequest.of(pageNum - 1, 20));
+    public Page<NewsResponseDto> pageNews(int pageNum, Team team) {
+        return newsRepository.searchAllNews(team, PageRequest.of(pageNum - 1, 20));
     }
 
 }

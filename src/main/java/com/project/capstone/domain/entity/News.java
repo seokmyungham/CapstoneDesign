@@ -23,13 +23,17 @@ public class News {
     private LocalDateTime time;
     private String number;
 
+    @Enumerated(EnumType.STRING)
+    private Team team;
+
     @Builder
-    public News(String image, String headline, String snippet, String url, LocalDateTime time, String number, String newsId) {
+    public News(String image, String headline, String snippet, String url, LocalDateTime time, String number, Team team) {
         this.image = image;
         this.headline = headline;
         this.snippet = snippet;
         this.url = url;
         this.time = time;
         this.number = number;
+        this.team = team;
     }
 }

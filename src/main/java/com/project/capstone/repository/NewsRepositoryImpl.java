@@ -2,6 +2,7 @@ package com.project.capstone.repository;
 
 import com.project.capstone.domain.dto.NewsResponseDto;
 import com.project.capstone.domain.entity.News;
+import com.project.capstone.domain.entity.Team;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,9 +22,10 @@ public class NewsRepositoryImpl implements NewsRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<NewsResponseDto> searchAllNews(Pageable pageable) {
+    public Page<NewsResponseDto> searchAllNews(Team team, Pageable pageable) {
         List<News> content = queryFactory
                 .selectFrom(news)
+                .where(news.team.eq(team))
                 .orderBy(news.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())

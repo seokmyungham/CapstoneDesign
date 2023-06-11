@@ -29,6 +29,8 @@ public class QNews extends EntityPathBase<News> {
 
     public final StringPath snippet = createString("snippet");
 
+    public final EnumPath<Team> team = createEnum("team", Team.class);
+
     public final DateTimePath<java.time.LocalDateTime> time = createDateTime("time", java.time.LocalDateTime.class);
 
     public final StringPath url = createString("url");
