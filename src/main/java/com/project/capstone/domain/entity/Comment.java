@@ -56,4 +56,12 @@ public class Comment extends BaseTimeEntity {
 
         this.post = post;
     }
+
+    public void setMember(Member member) {
+        if (member == null) {
+            throw new IllegalArgumentException("멤버는 필수 항목입니다.");
+        }
+
+        this.member = member;
+    }
 }
