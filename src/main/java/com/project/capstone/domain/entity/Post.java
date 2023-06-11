@@ -81,6 +81,6 @@ public class Post extends BaseTimeEntity {
 
     private boolean isValidImagePath(String imagePath) {
         String extension = imagePath.substring(imagePath.lastIndexOf('.') + 1);
-        return extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("png");
+        return extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("png") || extension.equalsIgnoreCase("jpeg");
     }
 }
