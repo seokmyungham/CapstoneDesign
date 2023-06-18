@@ -1,7 +1,7 @@
 package com.project.capstone.service;
 
 import com.project.capstone.config.SecurityUtil;
-import com.project.capstone.domain.dto.CommentResponseDto;
+import com.project.capstone.domain.dto.comment.CommentResponseDto;
 import com.project.capstone.domain.entity.Comment;
 import com.project.capstone.domain.entity.Member;
 import com.project.capstone.domain.entity.Post;

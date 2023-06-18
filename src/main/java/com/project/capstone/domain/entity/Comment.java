@@ -54,6 +54,7 @@ public class Comment extends BaseTimeEntity {
             throw new IllegalArgumentException("게시물은 필수 항목입니다.");
         }
 
+        post.getComments().add(this);
         this.post = post;
     }
 

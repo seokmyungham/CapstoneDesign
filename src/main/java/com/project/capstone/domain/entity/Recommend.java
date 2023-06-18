@@ -23,8 +23,21 @@ public class Recommend {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    public Recommend(Member member, Post post) {
-        this.member = member;
+    public void setPost(Post post) {
         this.post = post;
+        post.getRecommends().add(this);
     }
+
+    public static Recommend createRecommend(Member member, Post post) {
+        Recommend recommend = new Recommend();
+        recommend.member = member;
+        recommend.setPost(post);
+
+        return recommend;
+    }
+
+    public void removeRecommend(Recommend recommend, Post post) {
+        post.getRecommends().remove(recommend);
+    }
+
 }

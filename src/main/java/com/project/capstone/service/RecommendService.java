@@ -49,7 +49,7 @@ public class RecommendService {
                 .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다"));
         Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException("글이 없습니다"));
 
-        Recommend recommend = new Recommend(member, post);
+        Recommend recommend = Recommend.createRecommend(member, post);
         recommendRepository.save(recommend);
     }
 
@@ -64,6 +64,7 @@ public class RecommendService {
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("추천이 없습니다."));
 
+        recommend.removeRecommend(recommend, post);
         recommendRepository.delete(recommend);
     }
 }
