@@ -1,9 +1,9 @@
 package com.project.capstone.controller;
 
-import com.project.capstone.domain.dto.ChatMessageDto;
-import com.project.capstone.domain.dto.ChatRequestDto;
-import com.project.capstone.domain.dto.ChatResponseDto;
-import com.project.capstone.domain.dto.MessageDto;
+import com.project.capstone.domain.dto.chat.ChatMessageDto;
+import com.project.capstone.domain.dto.chat.ChatRequestDto;
+import com.project.capstone.domain.dto.chat.ChatResponseDto;
+import com.project.capstone.domain.dto.chat.MessageDto;
 import com.project.capstone.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

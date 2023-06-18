@@ -1,6 +1,6 @@
 package com.project.capstone.config.jwt;
 
-import com.project.capstone.config.dto.TokenDto;
+import com.project.capstone.domain.dto.auth.TokenDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;

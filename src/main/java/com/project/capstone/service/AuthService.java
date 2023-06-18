@@ -1,8 +1,8 @@
 package com.project.capstone.service;
 
-import com.project.capstone.config.dto.MemberRequestDto;
-import com.project.capstone.config.dto.MemberResponseDto;
-import com.project.capstone.config.dto.TokenDto;
+import com.project.capstone.domain.dto.member.MemberRequestDto;
+import com.project.capstone.domain.dto.member.MemberResponseDto;
+import com.project.capstone.domain.dto.auth.TokenDto;
 import com.project.capstone.config.jwt.TokenProvider;
 import com.project.capstone.domain.entity.Member;
 import com.project.capstone.repository.MemberRepository;

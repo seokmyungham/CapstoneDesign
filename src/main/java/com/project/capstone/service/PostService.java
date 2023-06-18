@@ -2,7 +2,7 @@ package com.project.capstone.service;
 
 import com.project.capstone.config.SecurityUtil;
 import com.project.capstone.domain.dto.PageResponseDto;
-import com.project.capstone.domain.dto.PostResponseDto;
+import com.project.capstone.domain.dto.post.PostResponseDto;
 import com.project.capstone.domain.entity.Member;
 import com.project.capstone.domain.entity.Post;
 import com.project.capstone.repository.MemberRepository;
@@ -40,7 +40,7 @@ public class PostService {
     }
 
     public Page<PageResponseDto> myPagePost(String nickname, int pageNum) {
-        return postRepository.searchByWriter(nickname, PageRequest.of(pageNum - 1, 20));
+        return postRepository.searchByWriter(nickname, PageRequest.of(pageNum - 1, 9));
     }
 
     public PostResponseDto onePost(Long id) {

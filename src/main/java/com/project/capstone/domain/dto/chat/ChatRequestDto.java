@@ -1,4 +1,4 @@
-package com.project.capstone.domain.dto;
+package com.project.capstone.domain.dto.chat;
 
 import lombok.Getter;
 

@@ -1,4 +1,4 @@
-package com.project.capstone.domain.dto;
+package com.project.capstone.domain.dto.chat;
 
 import com.project.capstone.domain.entity.ChatMessage;
 import lombok.AllArgsConstructor;

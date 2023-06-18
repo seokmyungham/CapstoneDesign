@@ -1,9 +1,9 @@
 package com.project.capstone.service;
 
 import com.project.capstone.config.SecurityUtil;
-import com.project.capstone.config.dto.MemberResponseDto;
-import com.project.capstone.domain.dto.ChatMessageDto;
-import com.project.capstone.domain.dto.ChatResponseDto;
+import com.project.capstone.domain.dto.member.MemberResponseDto;
+import com.project.capstone.domain.dto.chat.ChatMessageDto;
+import com.project.capstone.domain.dto.chat.ChatResponseDto;
 import com.project.capstone.domain.entity.ChatMessage;
 import com.project.capstone.domain.entity.ChatRoom;
 import com.project.capstone.domain.entity.Member;

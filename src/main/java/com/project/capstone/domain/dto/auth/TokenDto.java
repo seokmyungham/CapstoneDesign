@@ -1,4 +1,4 @@
-package com.project.capstone.config.dto;
+package com.project.capstone.domain.dto.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

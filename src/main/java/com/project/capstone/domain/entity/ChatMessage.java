@@ -27,12 +27,17 @@ public class ChatMessage {
     @JoinColumn(name = "chatroom_id")
     private ChatRoom chatRoom;
 
+    private void setChatRoom(ChatRoom chatRoom) {
+        this.chatRoom = chatRoom;
+        chatRoom.getChatMessages().add(this);
+    }
+
     public static ChatMessage createMessage(String content, String sender, LocalDateTime timestamp, ChatRoom chatRoom) {
         ChatMessage chatMessage = new ChatMessage();
         chatMessage.content = content;
         chatMessage.sender = sender;
         chatMessage.timestamp = timestamp;
-        chatMessage.chatRoom = chatRoom;
+        chatMessage.setChatRoom(chatRoom);
         return chatMessage;
     }
 }

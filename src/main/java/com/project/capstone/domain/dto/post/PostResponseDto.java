@@ -1,4 +1,4 @@
-package com.project.capstone.domain.dto;
+package com.project.capstone.domain.dto.post;
 
 import com.project.capstone.domain.entity.Post;
 import lombok.AllArgsConstructor;

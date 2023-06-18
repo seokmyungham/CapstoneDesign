@@ -1,7 +1,7 @@
 package com.project.capstone.service;
 
 import com.project.capstone.config.SecurityUtil;
-import com.project.capstone.config.dto.MemberResponseDto;
+import com.project.capstone.domain.dto.member.MemberResponseDto;
 import com.project.capstone.domain.entity.Member;
 import com.project.capstone.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;

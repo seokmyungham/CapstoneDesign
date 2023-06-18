@@ -1,6 +1,6 @@
 package com.project.capstone.controller;
 
-import com.project.capstone.domain.dto.MessageDto;
+import com.project.capstone.domain.dto.chat.MessageDto;
 import com.project.capstone.domain.dto.RecommendDto;
 import com.project.capstone.service.RecommendService;
 import lombok.RequiredArgsConstructor;

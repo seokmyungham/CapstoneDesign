@@ -1,6 +1,6 @@
-package com.project.capstone.domain.dto;
+package com.project.capstone.domain.dto.chat;
 
-import com.project.capstone.config.dto.MemberResponseDto;
+import com.project.capstone.domain.dto.member.MemberResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

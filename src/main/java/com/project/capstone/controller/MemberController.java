@@ -1,8 +1,8 @@
 package com.project.capstone.controller;
 
-import com.project.capstone.config.dto.ChangePasswordRequestDto;
-import com.project.capstone.config.dto.MemberRequestDto;
-import com.project.capstone.config.dto.MemberResponseDto;
+import com.project.capstone.domain.dto.auth.ChangePasswordRequestDto;
+import com.project.capstone.domain.dto.member.MemberRequestDto;
+import com.project.capstone.domain.dto.member.MemberResponseDto;
 import com.project.capstone.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

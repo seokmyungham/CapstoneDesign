@@ -1,8 +1,8 @@
 package com.project.capstone.controller;
 
-import com.project.capstone.config.dto.MemberRequestDto;
-import com.project.capstone.config.dto.MemberResponseDto;
-import com.project.capstone.config.dto.TokenDto;
+import com.project.capstone.domain.dto.member.MemberRequestDto;
+import com.project.capstone.domain.dto.member.MemberResponseDto;
+import com.project.capstone.domain.dto.auth.TokenDto;
 import com.project.capstone.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

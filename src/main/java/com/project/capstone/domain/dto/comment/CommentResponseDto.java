@@ -1,4 +1,4 @@
-package com.project.capstone.domain.dto;
+package com.project.capstone.domain.dto.comment;
 
 import com.project.capstone.domain.entity.Comment;
 import lombok.AllArgsConstructor;

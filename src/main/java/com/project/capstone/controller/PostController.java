@@ -1,6 +1,10 @@
 package com.project.capstone.controller;
 
 import com.project.capstone.domain.dto.*;
+import com.project.capstone.domain.dto.chat.MessageDto;
+import com.project.capstone.domain.dto.post.ChangePostRequestDto;
+import com.project.capstone.domain.dto.post.CreatePostRequestDto;
+import com.project.capstone.domain.dto.post.PostResponseDto;
 import com.project.capstone.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

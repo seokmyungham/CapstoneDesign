@@ -1,8 +1,8 @@
 package com.project.capstone.controller;
 
-import com.project.capstone.domain.dto.CommentRequestDto;
-import com.project.capstone.domain.dto.CommentResponseDto;
-import com.project.capstone.domain.dto.MessageDto;
+import com.project.capstone.domain.dto.comment.CommentRequestDto;
+import com.project.capstone.domain.dto.comment.CommentResponseDto;
+import com.project.capstone.domain.dto.chat.MessageDto;
 import com.project.capstone.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
