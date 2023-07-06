@@ -79,7 +79,7 @@ public class CommentService {
     @Transactional
     public void removeComment(Long id) {
         Member member = memberRepository.findById(SecurityUtil.getCurrentMemberId())
-                .orElseThrow(() -> new RuntimeException("로그인 하세요"));
+                .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다"));
         Comment comment = commentRepository.findById(id).orElseThrow(() -> new RuntimeException("댓글이 없습니다."));
         if (!comment.getMember().equals(member)) {
             throw new RuntimeException("작성자와 로그인이 일치하지 않습니다");

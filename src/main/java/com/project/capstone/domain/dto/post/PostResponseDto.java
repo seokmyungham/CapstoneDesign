@@ -23,17 +23,21 @@ public class PostResponseDto {
     private boolean isWritten;
 
     public static PostResponseDto of(Post post, boolean bool) {
+        String createdAt = post.getCreatedDate() != null ?
+                post.getCreatedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) : null;
+
+        String updatedAt = post.getCreatedDate() != null ?
+                post.getCreatedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) : null;
+
         return PostResponseDto.builder()
                 .postId(post.getId())
                 .memberNickName(post.getMember().getNickname())
                 .memberImage(post.getMember().getImage())
                 .title(post.getTitle())
                 .content(post.getContent())
-                .createdAt(post.getCreatedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
-                .updatedAt(post.getModifiedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                .createdAt(createdAt)
+                .updatedAt(updatedAt)
                 .isWritten(bool)
                 .build();
     }
-
-
 }

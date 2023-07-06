@@ -18,13 +18,16 @@ public class PageResponseDto {
     private String createdAt;
 
     public static PageResponseDto of(Post post) {
+        String createdAt = post.getCreatedDate() != null ?
+                post.getCreatedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) : null;
+
         return PageResponseDto.builder()
                 .postId(post.getId())
                 .postTitle(post.getTitle())
                 .postContent(post.getContent())
                 .memberNickname(post.getMember().getNickname())
                 .memberImage(post.getMember().getImage())
-                .createdAt(post.getCreatedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                .createdAt(createdAt)
                 .build();
     }
 
