@@ -48,11 +48,23 @@ public class WebSecurityConfig {
                 .accessDeniedHandler(jwtAccessDeniedHandler)
                 .and()
                 .authorizeHttpRequests() .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                .requestMatchers( "/hi", "/auth/**", "/profile", "/news/**", "/recommend/**", "/comment/**", "/ws/**").permitAll()
+                .requestMatchers( "/auth/**", "/profile", "/news/**", "/ws/**").permitAll()
+
                 .requestMatchers(HttpMethod.POST, "/post/").authenticated()
                 .requestMatchers(HttpMethod.PUT, "/post/").authenticated()
                 .requestMatchers(HttpMethod.GET, "/post/change/**").authenticated()
                 .requestMatchers(HttpMethod.DELETE, "/post/one/**").authenticated()
+
+                .requestMatchers(HttpMethod.POST, "/recommend/**").authenticated()
+                .requestMatchers(HttpMethod.DELETE, "/recommend/one/**").authenticated()
+
+                .requestMatchers(HttpMethod.POST, "/comment/**").authenticated()
+                .requestMatchers(HttpMethod.DELETE, "/comment/one/**").authenticated()
+
+                .requestMatchers(HttpMethod.POST, "/chat/room/**").authenticated()
+                .requestMatchers(HttpMethod.DELETE, "/chat/room/**").authenticated()
+                .requestMatchers(HttpMethod.GET, "/chat/list").authenticated()
+
                 .anyRequest().permitAll()
                 .and()
                 .apply(new JwtSecurityConfig(tokenProvider));
