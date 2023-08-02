@@ -28,7 +28,7 @@ public class ChatController {
     public void chat(@RequestBody ChatMessageDto messageDto) {
         chatService.saveMessage(messageDto);
         messagingTemplate.convertAndSend("/sub/topic/" + messageDto.getChatRoomId(), messageDto);
-        messagingTemplate.convertAndSend("/sub/topic/chatList", messageDto);
+        messagingTemplate.convertAndSend("/sub/topic/chatList/" + messageDto.getChatRoomId(), messageDto);
     }
 
     @PostMapping("/room")
