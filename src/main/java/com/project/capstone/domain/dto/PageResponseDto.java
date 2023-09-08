@@ -11,7 +11,6 @@ import java.time.format.DateTimeFormatter;
 public class PageResponseDto {
     private Long postId;
     private String postTitle;
-    private String content;
     private String memberNickname;
     private String memberImage;
     private String postContent;

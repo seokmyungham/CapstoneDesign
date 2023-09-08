@@ -3,7 +3,6 @@ package com.project.capstone.domain.entity;
 import com.project.capstone.domain.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -62,7 +61,6 @@ public class Comment extends BaseTimeEntity {
         if (member == null) {
             throw new IllegalArgumentException("멤버는 필수 항목입니다.");
         }
-
         this.member = member;
     }
 }
