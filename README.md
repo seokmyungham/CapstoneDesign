@@ -60,7 +60,7 @@
 
 ## API 문서
 
-Notion link: https://www.notion.so/API-4167e5f7adeb41e5ba30179479248593
+Notion link: https://harvest-skirt-b55.notion.site/API-4167e5f7adeb41e5ba30179479248593?pvs=4
 
 ---
 
