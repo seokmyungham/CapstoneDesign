@@ -2,11 +2,13 @@ package com.project.capstone.service;
 
 import com.project.capstone.config.SecurityUtil;
 import com.project.capstone.domain.dto.PageResponseDto;
+import com.project.capstone.domain.dto.post.FullPostInfoDto;
 import com.project.capstone.domain.dto.post.PostResponseDto;
 import com.project.capstone.domain.entity.Member;
 import com.project.capstone.domain.entity.Post;
+import com.project.capstone.repository.CommentRepository;
 import com.project.capstone.repository.MemberRepository;
-import com.project.capstone.repository.PageRepository;
+import com.project.capstone.repository.PostRepository;
 import com.project.capstone.repository.RecommendRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -16,24 +18,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class PostService {
-    private final PageRepository postRepository;
+    private final PostRepository postRepository;
     private final MemberRepository memberRepository;
+    private final CommentRepository commentRepository;
     private final RecommendRepository recommendRepository;
-
-    public List<PageResponseDto> pageResponse() {
-        List<Post> posts = postRepository.findAll();
-        return posts
-                .stream()
-                .map(PageResponseDto::of)
-                .collect(Collectors.toList());
-    }
+    private final CommentService commentService;
+    private final RecommendService recommendService;
 
     public Page<PageResponseDto> pagePost(int pageNum) {
         return postRepository.searchAll(PageRequest.of(pageNum - 1, 20));
@@ -43,16 +37,23 @@ public class PostService {
         return postRepository.searchByWriter(nickname, PageRequest.of(pageNum - 1, 9));
     }
 
-    public PostResponseDto onePost(Long id) {
-        Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException("글이 없습니다"));
+    public FullPostInfoDto onePost(Long id) {
+        Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException("게시글이 없습니다"));
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        FullPostInfoDto fullPostInfoDto = new FullPostInfoDto();
+        fullPostInfoDto.setCommentResponseDtoList(commentService.getComment(post));
+        fullPostInfoDto.setRecommendDto(recommendService.allRecommend_OnePost(post));
+
         if (authentication == null || authentication.getPrincipal() == "anonymousUser") {
-            return PostResponseDto.of(post, false);
+            fullPostInfoDto.setPostResponseDto(PostResponseDto.of(post, false));
         } else {
             Member member = memberRepository.findById(Long.parseLong(authentication.getName())).orElseThrow();
             boolean result = post.getMember().equals(member);
-            return PostResponseDto.of(post, result);
+            fullPostInfoDto.setPostResponseDto(PostResponseDto.of(post, result));
         }
+
+        return fullPostInfoDto;
     }
 
     @Transactional

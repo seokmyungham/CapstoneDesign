@@ -4,6 +4,7 @@ import com.project.capstone.domain.dto.*;
 import com.project.capstone.domain.dto.chat.MessageDto;
 import com.project.capstone.domain.dto.post.ChangePostRequestDto;
 import com.project.capstone.domain.dto.post.CreatePostRequestDto;
+import com.project.capstone.domain.dto.post.FullPostInfoDto;
 import com.project.capstone.domain.dto.post.PostResponseDto;
 import com.project.capstone.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,7 @@ public class PostController {
     }
 
     @GetMapping("/one")
-    public ResponseEntity<PostResponseDto> getOnePost(@RequestParam(name = "id") Long id) {
+    public ResponseEntity<FullPostInfoDto> getOnePost(@RequestParam(name = "id") Long id) {
         return ResponseEntity.ok(postService.onePost(id));
     }
 
@@ -38,7 +39,7 @@ public class PostController {
     }
 
     @GetMapping("/change")
-    public ResponseEntity<PostResponseDto> getChangePost(@RequestParam(name = "id") Long id) {
+    public ResponseEntity<FullPostInfoDto> getChangePost(@RequestParam(name = "id") Long id) {
         return ResponseEntity.ok(postService.onePost(id));
     }
 

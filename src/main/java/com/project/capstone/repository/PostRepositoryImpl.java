@@ -12,11 +12,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.project.capstone.domain.entity.QMember.*;
 import static com.project.capstone.domain.entity.QPost.*;
 
 @RequiredArgsConstructor
 @Repository
-public class PageRepositoryImpl implements PageRepositoryCustom {
+public class PostRepositoryImpl implements PostRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
 
@@ -24,6 +25,7 @@ public class PageRepositoryImpl implements PageRepositoryCustom {
     public Page<PageResponseDto> searchAll(Pageable pageable) {
         List<Post> content = queryFactory
                 .selectFrom(post)
+                .join(post.member, member).fetchJoin()
                 .orderBy(post.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
@@ -46,6 +48,7 @@ public class PageRepositoryImpl implements PageRepositoryCustom {
     public Page<PageResponseDto> searchByWriter(String nickname, Pageable pageable) {
         List<Post> content = queryFactory
                 .selectFrom(post)
+                .join(post.member, member).fetchJoin()
                 .where(post.member.nickname.eq(nickname))
                 .orderBy(post.id.desc())
                 .offset(pageable.getOffset())
@@ -59,6 +62,7 @@ public class PageRepositoryImpl implements PageRepositoryCustom {
 
         int totalSize = queryFactory
                 .selectFrom(post)
+                .where(post.member.nickname.eq(nickname))
                 .fetch()
                 .size();
 

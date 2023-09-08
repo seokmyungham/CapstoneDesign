@@ -16,11 +16,6 @@ import java.util.List;
 public class CommentController {
     private final CommentService commentService;
 
-    @GetMapping("/list")
-    public ResponseEntity<List<CommentResponseDto>> getComments(@RequestParam(name = "id") Long id) {
-        return ResponseEntity.ok(commentService.getComment(id));
-    }
-
     @PostMapping("/")
     public ResponseEntity<CommentResponseDto> postComment(@RequestBody CommentRequestDto request) {
         return ResponseEntity.ok(commentService.createComment(request.getPostId(), request.getBody()));

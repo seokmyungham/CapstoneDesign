@@ -6,7 +6,7 @@ import com.project.capstone.domain.entity.Member;
 import com.project.capstone.domain.entity.Post;
 import com.project.capstone.domain.entity.Recommend;
 import com.project.capstone.repository.MemberRepository;
-import com.project.capstone.repository.PageRepository;
+import com.project.capstone.repository.PostRepository;
 import com.project.capstone.repository.RecommendRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -20,27 +20,19 @@ import java.util.List;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class RecommendService {
-    private final PageRepository postRepository;
+    private final PostRepository postRepository;
     private final MemberRepository memberRepository;
     private final RecommendRepository recommendRepository;
 
+    public RecommendDto allRecommend_OnePost(Post post) {
+        List<Recommend> recommends = post.getRecommends();
+        return getRecommendDto(recommends);
+    }
+
     public RecommendDto allRecommend(Long id) {
         Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException("글이 없습니다."));
-        List<Recommend> recommends = recommendRepository.findAllByPost(post);
-        int size = recommends.size();
-        if (size == 0) {
-            return RecommendDto.noOne();
-        }
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (authentication == null || authentication.getPrincipal() == "anonymousUser") {
-            return new RecommendDto(size, false);
-        } else {
-            Member member = memberRepository.findById(Long.parseLong(authentication.getName())).orElseThrow();
-            boolean result = recommends.stream().anyMatch(recommend -> recommend.getMember().equals(member));
-            return new RecommendDto(size, result);
-        }
+        List<Recommend> recommends = post.getRecommends();
+        return getRecommendDto(recommends);
     }
 
     @Transactional
@@ -66,5 +58,22 @@ public class RecommendService {
 
         recommend.removeRecommend(recommend, post);
         recommendRepository.delete(recommend);
+    }
+
+    private RecommendDto getRecommendDto(List<Recommend> recommends) {
+        int size = recommends.size();
+        if (size == 0) {
+            return RecommendDto.noOne();
+        }
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || authentication.getPrincipal() == "anonymousUser") {
+            return new RecommendDto(size, false);
+        } else {
+            Member member = memberRepository.findById(Long.parseLong(authentication.getName())).orElseThrow();
+            boolean result = recommends.stream().anyMatch(recommend -> recommend.getMember().equals(member));
+            return new RecommendDto(size, result);
+        }
     }
 }
