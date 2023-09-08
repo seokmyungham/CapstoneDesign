@@ -105,7 +105,7 @@ Notion link: https://www.notion.so/API-4167e5f7adeb41e5ba30179479248593
 > 프론트로부터 들어오는 호출은 백 이전에 Nginx로 모두 들어오기 때문에  
 > 스프링뿐만 아니라 Nginx의 설정 파일에서도 적절히 header의 접근을 허용해주어야 했습니다.
 
-<img src="https://github.com/seokmyungham/CapstoneDesign/assets/97608735/6db9b2a8-f88d-4bda-917a-863d36fe1009" width="500" height="300"/>
+<img src="https://github.com/seokmyungham/CapstoneDesign/assets/97608735/14fe77d8-21ac-4079-94e8-8d44b4e7b3bc" width="500" height="300"/>
 
 > 처음에는 Ngnix의 내부 구조를 정확하게 이해하지 못하고 반나절동안 해맸던 경험이었는데  
 > 책을 뒤져보고 구글에 검색해보아도 원하는 내용을 찾을 수 없어서  
