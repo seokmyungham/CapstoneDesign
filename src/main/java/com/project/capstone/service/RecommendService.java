@@ -9,6 +9,7 @@ import com.project.capstone.repository.MemberRepository;
 import com.project.capstone.repository.PostRepository;
 import com.project.capstone.repository.RecommendRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -19,17 +20,14 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Slf4j
 public class RecommendService {
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
     private final RecommendRepository recommendRepository;
 
-    public RecommendDto allRecommend_OnePost(Post post) {
+    public RecommendDto allRecommend(Post post) {
         List<Recommend> recommends = post.getRecommends();
-        return getRecommendDto(recommends);
-    }
-
-    public RecommendDto allRecommend(List<Recommend> recommends) {
         return getRecommendDto(recommends);
     }
 
@@ -40,6 +38,7 @@ public class RecommendService {
         Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException("글이 없습니다"));
 
         Recommend recommend = Recommend.createRecommend(member, post);
+        log.info(member.getNickname() + "->" + post.getId() + " 번 게시글 좋아요");
         recommendRepository.save(recommend);
     }
 
@@ -54,6 +53,7 @@ public class RecommendService {
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("추천이 없습니다."));
 
+        log.info(member.getNickname() + "->" + post.getId() + " 번 게시글 좋아요 취소");
         recommend.removeRecommend(recommend, post);
         recommendRepository.delete(recommend);
     }

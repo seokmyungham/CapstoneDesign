@@ -11,6 +11,7 @@ import com.project.capstone.repository.ChatMessageRepository;
 import com.project.capstone.repository.ChatRoomRepository;
 import com.project.capstone.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,12 +24,12 @@ import java.util.stream.Collectors;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Slf4j
 public class ChatService {
 
     private final ChatRoomRepository chatRoomRepository;
     private final ChatMessageRepository chatMessageRepository;
     private final MemberRepository memberRepository;
-
 
     @Transactional
     public ChatResponseDto chatRoom(String nickname) {
@@ -45,6 +46,7 @@ public class ChatService {
                     chatRoomRepository.save(newChatRoom);
                     return newChatRoom;
                 });
+        log.info(member1.getNickname() + "<->" + member2.getNickname() + " 채팅방 생성 성공");
 
         List<ChatMessage> chatHistory = chatMessageRepository.findByChatRoomId(chatRoom.getId());
 
@@ -66,7 +68,7 @@ public class ChatService {
         if (!chatRoom.getRoomMaker().equals(member) && !chatRoom.getGuest().equals(member)) {
             throw new RuntimeException("채팅 방에 소속된 멤버가 아닙니다.");
         }
-
+        log.info("채팅방 삭제 성공");
         chatRoomRepository.delete(chatRoom);
     }
 
@@ -78,7 +80,6 @@ public class ChatService {
 
         for (ChatRoom chatRoom : chatRoomList) {
             Member otherPerson = chatRoom.getRoomMaker().equals(member) ? chatRoom.getGuest() : chatRoom.getRoomMaker();
-
             Optional<Member> optionalOtherPerson = memberRepository.findById(otherPerson.getId());
             MemberResponseDto memberInfo = optionalOtherPerson.map(MemberResponseDto::of).orElseThrow(() -> new RuntimeException("해당 아이디를 가진 회원이 없습니다."));
 
@@ -95,7 +96,7 @@ public class ChatService {
 
             result.add(ChatResponseDto.of(chatRoom.getId(), memberInfo, collect));
         }
-
+        log.info(member.getNickname() + "의 채팅방 목록 호출 성공");
         return result;
     }
 

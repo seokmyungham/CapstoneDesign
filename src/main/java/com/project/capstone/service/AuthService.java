@@ -32,6 +32,7 @@ public class AuthService {
         }
 
         Member member = requestDto.toMember(passwordEncoder);
+        log.info(requestDto.getNickname() + "유저 회원가입 성공");
         return MemberResponseDto.of(memberRepository.save(member));
     }
 
@@ -48,6 +49,8 @@ public class AuthService {
     public TokenDto login(MemberRequestDto requestDto) {
         UsernamePasswordAuthenticationToken authenticationToken = requestDto.toAuthentication();
         Authentication authentication = managerBuilder.getObject().authenticate(authenticationToken);
+
+        log.info(requestDto.getNickname() + "유저가 로그인하였습니다.");
         return tokenProvider.generateTokenDto(authentication);
     }
 }

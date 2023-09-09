@@ -12,6 +12,7 @@ import com.project.capstone.repository.MemberRepository;
 import com.project.capstone.repository.PostRepository;
 import com.project.capstone.repository.RecommendRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +27,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Slf4j
 public class PostService {
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
@@ -39,7 +41,7 @@ public class PostService {
 
         List<PageResponseDto> pageResponseDtos = posts.getContent()
                 .stream()
-                .map(post -> PageResponseDto.of(post, recommendService.allRecommend(post.getRecommends())))
+                .map(post -> PageResponseDto.of(post, recommendService.allRecommend(post)))
                 .collect(Collectors.toList());
 
         return new PageImpl<>(pageResponseDtos, posts.getPageable(), posts.getTotalElements());
@@ -55,7 +57,7 @@ public class PostService {
 
         FullPostInfoDto fullPostInfoDto = new FullPostInfoDto();
         fullPostInfoDto.setCommentResponseDtoList(commentService.getComment(post));
-        fullPostInfoDto.setRecommendDto(recommendService.allRecommend_OnePost(post));
+        fullPostInfoDto.setRecommendDto(recommendService.allRecommend(post));
 
         if (authentication == null || authentication.getPrincipal() == "anonymousUser") {
             fullPostInfoDto.setPostResponseDto(PostResponseDto.of(post, false));
@@ -72,12 +74,15 @@ public class PostService {
     public PostResponseDto createPost(String title, String content) {
         Member member = isMemberCurrent();
         Post post = Post.createPost(title, content, member);
+
+        log.info(member.getNickname() + " 유저의 게시글 등록 성공");
         return PostResponseDto.of(postRepository.save(post), true);
     }
 
     @Transactional
     public PostResponseDto changePost(Long id, String title, String content) {
         Post post = authorizationPostWriter(id);
+        log.info(post.getId() + "번 게시글 수정 성공");
         return PostResponseDto.of(postRepository.save(Post.updatePost(post, title, content)), true);
     }
 
@@ -86,6 +91,7 @@ public class PostService {
         Post post = authorizationPostWriter(id);
         post.deletePost(post);
         postRepository.delete(post);
+        log.info(id + "번 게시글 삭제 성공");
     }
 
     public Member isMemberCurrent() {

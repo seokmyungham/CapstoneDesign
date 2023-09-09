@@ -9,6 +9,7 @@ import com.project.capstone.repository.CommentRepository;
 import com.project.capstone.repository.MemberRepository;
 import com.project.capstone.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ import java.util.stream.Stream;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Slf4j
 public class CommentService {
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
@@ -71,6 +73,8 @@ public class CommentService {
         Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException("게시물이 없습니다"));
 
         Comment comment = Comment.createComment(text, member, post);
+
+        log.info(member.getNickname() + "님이 댓글을 달았습니다. = " + text);
         return CommentResponseDto.of(commentRepository.save(comment), true);
     }
 
@@ -82,6 +86,7 @@ public class CommentService {
         if (!comment.getMember().equals(member)) {
             throw new RuntimeException("작성자와 로그인이 일치하지 않습니다");
         }
+        log.info(member.getNickname() + " 님이 댓글을 삭제하였습니다. = " + comment.getText());
         commentRepository.delete(comment);
     }
 

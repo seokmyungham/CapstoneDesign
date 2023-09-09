@@ -6,7 +6,7 @@ import com.project.capstone.domain.entity.Member;
 import com.project.capstone.domain.entity.Post;
 import com.project.capstone.repository.CommentRepository;
 import com.project.capstone.repository.MemberRepository;
-import com.project.capstone.repository.PageRepository;
+import com.project.capstone.repository.PostRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -21,14 +21,13 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 class CommentServiceTest {
 
     @Mock
-    PageRepository postRepository;
+    PostRepository postRepository;
 
     @Mock
     MemberRepository memberRepository;
