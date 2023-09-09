@@ -29,41 +29,6 @@ public class CommentService {
     private final MemberRepository memberRepository;
     private final CommentRepository commentRepository;
 
-//    public List<CommentResponseDto> getComment(Long id) {
-//        Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException("게시글이 없습니다."));
-//        List<Comment> comments = post.getComments();
-//        if (comments.isEmpty()) {
-//            return Collections.emptyList();
-//        }
-//
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if (authentication == null || authentication.getPrincipal() == "anonymousUser") {
-//            return comments
-//                    .stream()
-//                    .map(comment -> CommentResponseDto.of(comment, false))
-//                    .collect(Collectors.toList());
-//        } else {
-//            Member member = memberRepository.findById(Long.parseLong(authentication.getName())).orElseThrow();
-//            Map<Boolean, List<Comment>> collect = comments.stream()
-//                    .collect(Collectors.partitioningBy(
-//                                    comment -> comment.getMember().equals(member)
-//                            )
-//                    );
-//            List<CommentResponseDto> trueCollect = collect.get(true).stream()
-//                    .map(t -> CommentResponseDto.of(t, true))
-//                    .collect(Collectors.toList());
-//
-//            List<CommentResponseDto> falseCollect = collect.get(false).stream()
-//                    .map(f -> CommentResponseDto.of(f, false))
-//                    .collect(Collectors.toList());
-//
-//            return Stream
-//                    .concat(trueCollect.stream(), falseCollect.stream())
-//                    .sorted(Comparator.comparing(CommentResponseDto::getCommentId))
-//                    .collect(Collectors.toList());
-//        }
-//    }
-
     public List<CommentResponseDto> getComment(Post post) {
         List<Comment> comments = post.getComments();
         if (comments.isEmpty()) {
