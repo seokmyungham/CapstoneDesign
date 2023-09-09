@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.*;
 public class RecommendController {
     private final RecommendService recommendService;
 
-    @GetMapping("/list")
-    public ResponseEntity<RecommendDto> getRecommends(@RequestParam(name = "id") Long id) {
-        return ResponseEntity.ok(recommendService.allRecommend(id));
-    }
+//    @GetMapping("/list")
+//    public ResponseEntity<RecommendDto> getRecommends(@RequestParam(name = "id") Long id) {
+//        return ResponseEntity.ok(recommendService.allRecommend(id));
+//    }
 
     @PostMapping("/")
     public ResponseEntity<MessageDto> postRecommend(@RequestBody RecommendDto dto) {

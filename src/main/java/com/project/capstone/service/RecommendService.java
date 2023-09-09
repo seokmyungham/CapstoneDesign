@@ -29,9 +29,7 @@ public class RecommendService {
         return getRecommendDto(recommends);
     }
 
-    public RecommendDto allRecommend(Long id) {
-        Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException("글이 없습니다."));
-        List<Recommend> recommends = post.getRecommends();
+    public RecommendDto allRecommend(List<Recommend> recommends) {
         return getRecommendDto(recommends);
     }
 

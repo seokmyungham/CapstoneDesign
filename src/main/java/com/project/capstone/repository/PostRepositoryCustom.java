@@ -1,11 +1,12 @@
 package com.project.capstone.repository;
 
-import com.project.capstone.domain.dto.PageResponseDto;
+import com.project.capstone.domain.dto.post.MyPageResponseDto;
+import com.project.capstone.domain.entity.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface PostRepositoryCustom {
-    Page<PageResponseDto> searchAll(Pageable pageable);
+    Page<Post> searchAll(Pageable pageable);
 
-    Page<PageResponseDto> searchByWriter(String nickname, Pageable pageable);
+    Page<MyPageResponseDto> searchByWriter(String nickname, Pageable pageable);
 }

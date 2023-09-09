@@ -2,10 +2,7 @@ package com.project.capstone.controller;
 
 import com.project.capstone.domain.dto.*;
 import com.project.capstone.domain.dto.chat.MessageDto;
-import com.project.capstone.domain.dto.post.ChangePostRequestDto;
-import com.project.capstone.domain.dto.post.CreatePostRequestDto;
-import com.project.capstone.domain.dto.post.FullPostInfoDto;
-import com.project.capstone.domain.dto.post.PostResponseDto;
+import com.project.capstone.domain.dto.post.*;
 import com.project.capstone.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,7 +21,7 @@ public class PostController {
     }
 
     @GetMapping("/{nickname}/{page}")
-    public ResponseEntity<Page<PageResponseDto>> myPagePost(@PathVariable(name = "nickname") String nickname, @PathVariable(name = "page") int page) {
+    public ResponseEntity<Page<MyPageResponseDto>> myPagePost(@PathVariable(name = "nickname") String nickname, @PathVariable(name = "page") int page) {
         return ResponseEntity.ok(postService.myPagePost(nickname, page));
     }
 

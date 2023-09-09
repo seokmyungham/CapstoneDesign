@@ -3,6 +3,7 @@ package com.project.capstone.service;
 import com.project.capstone.config.SecurityUtil;
 import com.project.capstone.domain.dto.PageResponseDto;
 import com.project.capstone.domain.dto.post.FullPostInfoDto;
+import com.project.capstone.domain.dto.post.MyPageResponseDto;
 import com.project.capstone.domain.dto.post.PostResponseDto;
 import com.project.capstone.domain.entity.Member;
 import com.project.capstone.domain.entity.Post;
@@ -12,11 +13,15 @@ import com.project.capstone.repository.PostRepository;
 import com.project.capstone.repository.RecommendRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -30,10 +35,17 @@ public class PostService {
     private final RecommendService recommendService;
 
     public Page<PageResponseDto> pagePost(int pageNum) {
-        return postRepository.searchAll(PageRequest.of(pageNum - 1, 20));
+        Page<Post> posts = postRepository.searchAll(PageRequest.of(pageNum - 1, 20));
+
+        List<PageResponseDto> pageResponseDtos = posts.getContent()
+                .stream()
+                .map(post -> PageResponseDto.of(post, recommendService.allRecommend(post.getRecommends())))
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(pageResponseDtos, posts.getPageable(), posts.getTotalElements());
     }
 
-    public Page<PageResponseDto> myPagePost(String nickname, int pageNum) {
+    public Page<MyPageResponseDto> myPagePost(String nickname, int pageNum) {
         return postRepository.searchByWriter(nickname, PageRequest.of(pageNum - 1, 9));
     }
 
