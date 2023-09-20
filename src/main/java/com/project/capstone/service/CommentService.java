@@ -74,7 +74,7 @@ public class CommentService {
 
         Comment comment = Comment.createComment(text, member, post);
 
-        log.info(member.getNickname() + "님이 댓글을 달았습니다. = " + text);
+        log.info("{} 님이 댓글을 달았습니다. = {}", member.getNickname(), text);
         return CommentResponseDto.of(commentRepository.save(comment), true);
     }
 
@@ -86,7 +86,7 @@ public class CommentService {
         if (!comment.getMember().equals(member)) {
             throw new RuntimeException("작성자와 로그인이 일치하지 않습니다");
         }
-        log.info(member.getNickname() + " 님이 댓글을 삭제하였습니다. = " + comment.getText());
+        log.info("{} 님이 댓글을 삭제하였습니다. = {}", member.getNickname(), comment.getText());
         commentRepository.delete(comment);
     }
 

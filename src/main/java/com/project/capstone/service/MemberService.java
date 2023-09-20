@@ -44,7 +44,7 @@ public class MemberService {
     public MemberResponseDto changeMemberNickname(String nickname) {
         Member member = memberRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다"));
 
-        log.info(member.getNickname() + " 유저가 닉네임을 변경하였습니다 = " + nickname);
+        log.info("{} 유저가 닉네임을 변경하였습니다 = {}", member.getNickname(), nickname);
         member.changeNickname(nickname);
         return MemberResponseDto.of(memberRepository.save(member));
     }
@@ -55,7 +55,7 @@ public class MemberService {
         if (!passwordEncoder.matches(exPassword, member.getPassword())) {
             throw new RuntimeException("비밀번호가 맞지 않습니다");
         }
-        log.info(member.getNickname() + " 유저가 비밀번호를 변경하였습니다.");
+        log.info("{} 유저가 비밀번호를 변경하였습니다.", member.getNickname());
         member.changePassword(passwordEncoder.encode(newPassword));
         return MemberResponseDto.of(memberRepository.save(member));
     }
@@ -63,7 +63,7 @@ public class MemberService {
     @Transactional
     public MemberResponseDto changeMemberImage(String image) {
         Member member = memberRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
-        log.info(member.getNickname()+ " 유저가 이미지를 변경하였습니다.");
+        log.info("{} 유저가 이미지를 변경하였습니다.", member.getNickname());
         member.changeImage(image);
         return MemberResponseDto.of(memberRepository.save(member));
     }
@@ -71,7 +71,7 @@ public class MemberService {
     @Transactional
     public MemberResponseDto changeMemberIntroduction(String introduction) {
         Member member = memberRepository.findById(SecurityUtil.getCurrentMemberId()).orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
-        log.info(member.getNickname()+ " 유저가 자기소개를 변경하였습니다. = " + introduction);
+        log.info("{} 유저가 자기소개를 변경하였습니다. = {}", member.getNickname(), introduction);
         member.changeIntroduction(introduction);
         return MemberResponseDto.of(memberRepository.save(member));
     }

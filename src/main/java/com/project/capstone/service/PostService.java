@@ -75,14 +75,14 @@ public class PostService {
         Member member = isMemberCurrent();
         Post post = Post.createPost(title, content, member);
 
-        log.info(member.getNickname() + " 유저의 게시글 등록 성공");
+        log.info("{} 유저의 게시글 등록 성공, 이미지: {}, 내용: {}", member.getNickname(), title, content);
         return PostResponseDto.of(postRepository.save(post), true);
     }
 
     @Transactional
     public PostResponseDto changePost(Long id, String title, String content) {
         Post post = authorizationPostWriter(id);
-        log.info(post.getId() + "번 게시글 수정 성공");
+        log.info("{}번 게시글 수정 성공, 이미지: {}, 내용: {}", post.getId(), title, content);
         return PostResponseDto.of(postRepository.save(Post.updatePost(post, title, content)), true);
     }
 
@@ -91,7 +91,7 @@ public class PostService {
         Post post = authorizationPostWriter(id);
         post.deletePost(post);
         postRepository.delete(post);
-        log.info(id + "번 게시글 삭제 성공");
+        log.info("{}번 게시글 삭제 성공", id);
     }
 
     public Member isMemberCurrent() {

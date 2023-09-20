@@ -46,7 +46,7 @@ public class ChatService {
                     chatRoomRepository.save(newChatRoom);
                     return newChatRoom;
                 });
-        log.info(member1.getNickname() + "<->" + member2.getNickname() + " 채팅방 생성 성공");
+        log.info("{} <-> {} 채팅방 생성 성공", member1.getNickname(), member2.getNickname());
 
         List<ChatMessage> chatHistory = chatMessageRepository.findByChatRoomId(chatRoom.getId());
 
@@ -96,7 +96,7 @@ public class ChatService {
 
             result.add(ChatResponseDto.of(chatRoom.getId(), memberInfo, collect));
         }
-        log.info(member.getNickname() + "의 채팅방 목록 호출 성공");
+        log.info("{} 의 채팅방 목록 호출 성공", member.getNickname());
         return result;
     }
 

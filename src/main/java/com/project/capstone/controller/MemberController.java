@@ -22,7 +22,7 @@ public class MemberController {
     @GetMapping("/me")
     public ResponseEntity<MemberResponseDto> getMyMemberInfo() {
         MemberResponseDto myInfoBySecurity = memberService.getMyInfoBySecurity();
-        log.info(myInfoBySecurity.getNickname() + "님이 로그인 하였습니다.");
+        log.info("{} 님이 로그인 하였습니다.", myInfoBySecurity.getNickname());
         return ResponseEntity.ok(myInfoBySecurity);
     }
 

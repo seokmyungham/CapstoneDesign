@@ -38,7 +38,7 @@ public class RecommendService {
         Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException("글이 없습니다"));
 
         Recommend recommend = Recommend.createRecommend(member, post);
-        log.info(member.getNickname() + "->" + post.getId() + " 번 게시글 좋아요");
+        log.info("{} -> {}번 게시글 좋아요", member.getNickname(), post.getId());
         recommendRepository.save(recommend);
     }
 
@@ -53,7 +53,7 @@ public class RecommendService {
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("추천이 없습니다."));
 
-        log.info(member.getNickname() + "->" + post.getId() + " 번 게시글 좋아요 취소");
+        log.info("{} -> {}번 게시글 좋아요 취소", member.getNickname(), post.getId());
         recommend.removeRecommend(recommend, post);
         recommendRepository.delete(recommend);
     }
