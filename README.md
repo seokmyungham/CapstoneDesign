@@ -50,13 +50,13 @@
 
 |메인페이지|게시글 페이지|
 |---|---|
-|<img src="https://github.com/seokmyungham/CapstoneDesign/assets/97608735/615eda2d-fd4d-447f-88a4-80f6d50775d3" width="500" height="300"/>|<img src="https://github.com/seokmyungham/CapstoneDesign/assets/97608735/d6567a3f-e0b7-424c-a005-02c02835d071" width="500" height="300"/>|
+|<img src="https://github.com/seokmyungham/CapstoneDesign/assets/97608735/615eda2d-fd4d-447f-88a4-80f6d50775d3" width="576" height="307"/>|<img src="https://github.com/seokmyungham/CapstoneDesign/assets/97608735/d6567a3f-e0b7-424c-a005-02c02835d071" width="576" height="307"/>|
 |<div align="center"/>회원 검색|<div align="center"/>마이페이지|
-|<img src="https://github.com/seokmyungham/CapstoneDesign/assets/97608735/f65df7de-2f55-4a1d-9daf-6839e4b619b1" width="500" height="300"/>|<img src="https://github.com/seokmyungham/CapstoneDesign/assets/97608735/952c1872-78c8-4a45-80e1-b1145ac3434f" width="500" height="300"/>|
+|<img src="https://github.com/seokmyungham/CapstoneDesign/assets/97608735/f65df7de-2f55-4a1d-9daf-6839e4b619b1" width="576" height="307"/>|<img src="https://github.com/seokmyungham/CapstoneDesign/assets/97608735/952c1872-78c8-4a45-80e1-b1145ac3434f" width="576" height="307"/>|
 |<div align="center"/>채팅방 리스트|<div align="center"/>1대1 채팅|
-|<img src="https://github.com/seokmyungham/CapstoneDesign/assets/97608735/d0c4cde6-1c49-4a7b-8a3f-63307eb89f4d" width="500"/>|<img src="https://github.com/seokmyungham/CapstoneDesign/assets/97608735/1bbf4839-bc3d-42f6-bcab-e2bf7c2fb79b" width="500" height="300"/>|
+|<img src="https://github.com/seokmyungham/CapstoneDesign/assets/97608735/d0c4cde6-1c49-4a7b-8a3f-63307eb89f4d" width="500"/>|<img src="https://github.com/seokmyungham/CapstoneDesign/assets/97608735/1bbf4839-bc3d-42f6-bcab-e2bf7c2fb79b" width="576" height="307"/>|
 |<div align="center"/>스카이스포츠 뉴스 크롤링|
-|<img src="https://github.com/seokmyungham/CapstoneDesign/assets/97608735/a3302a7e-f61c-4162-a103-8c686e7c345e" width="500" height="300"/>|
+|<img src="https://github.com/seokmyungham/CapstoneDesign/assets/97608735/a3302a7e-f61c-4162-a103-8c686e7c345e" width="576" height="307"/>|
 
 ## API 문서
 
